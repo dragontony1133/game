@@ -10,21 +10,27 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     public int health = 100;
+    private const int HEALTH_MAX = 100;
     public Image healthBar;
-    public float healthAmount = 100f;
-
     public void TakeDamage(int damge)
-    {
+    {   
        if(health > 0) {
             health -= damge;
             StartCoroutine(DamageAnimation());
-            healthAmount -= damge ;
-            healthBar.fillAmount = healthAmount / 100f;
+            // healthAmount -= damge ;
+            // healthBar.fillAmount = healthAmount / 100f;
         }
         else
         {
             Die();
         }
+    }
+     public void Heal(int healthAmount)
+    {   
+       if(health + healthAmount>=  HEALTH_MAX)
+            health = HEALTH_MAX;
+        else 
+            health += healthAmount;
     }
     void Die()
     {
@@ -44,11 +50,10 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator DamageAnimation()
     {
-        Debug.Log("Animation damage ne");
         Animator playerAnimator = GameObject.Find("Player").GetComponent<Animator>();
       playerAnimator.SetBool("isHurting", true);
       yield return new WaitForSeconds(0.5f);
         playerAnimator.SetBool("isHurting", false);
-    
     }
+    
 }

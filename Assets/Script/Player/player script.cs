@@ -11,11 +11,11 @@ public class NewBehaviourScript : MonoBehaviour
     Rigidbody2D rb;
     Animator anim;
     float dirX, moveSpeed = 5f;
-    int healthPoints = 3;
     bool isHurting, isDead;
     bool facingRight = true;
     Vector3 localScale;
     private bool  isCanAttack = true;
+    PlayerHealth playerHealth;
 
     // Use this for initialization
     void Start()
@@ -23,6 +23,7 @@ public class NewBehaviourScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         localScale = transform.localScale;
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     // Update is called once per frame
@@ -50,14 +51,8 @@ public class NewBehaviourScript : MonoBehaviour
         if (!isDead)
             dirX = Input.GetAxisRaw("Horizontal") * moveSpeed;
      }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            GetComponent<PlayerHealth>().TakeDamage(5);
-        }
 
-    }
+
     private IEnumerator ResetAttack()
     {
 
@@ -99,8 +94,6 @@ public class NewBehaviourScript : MonoBehaviour
         if (Mathf.Abs(rb.velocity.y) > 0.01)
             anim.SetBool("isJumping", true);
 
-
-
     }
 
     void CheckWhereToFace()
@@ -117,23 +110,13 @@ public class NewBehaviourScript : MonoBehaviour
 
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    private void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.name.Equals("Fire"))
+        Debug.Log(col);
+        if (col.gameObject.tag == "Heal") // Kiểm tra tag của GameObject va chạm
         {
-            healthPoints -= 1;
-        }
-
-        if (col.gameObject.name.Equals("Fire") && healthPoints > 0)
-        {
-            anim.SetTrigger("isHurting");
-            StartCoroutine("Hurt");
-        }
-        else
-        {
-            dirX = 0;
-            isDead = true;
-            anim.SetTrigger("isDead");
+          playerHealth.Heal(5);
+          Destroy(col.gameObject);
         }
     }
 
