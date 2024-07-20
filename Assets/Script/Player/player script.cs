@@ -118,6 +118,10 @@ public class NewBehaviourScript : MonoBehaviour
           playerHealth.Heal(5);
           Destroy(col.gameObject);
         }
+        if (col.gameObject.tag == "Enemy") // Kiểm tra tag của GameObject va chạm
+        {
+          playerHealth.TakeDamage(5);
+        }
     }
 
     IEnumerator Hurt()

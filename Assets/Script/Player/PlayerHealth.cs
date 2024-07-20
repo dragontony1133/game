@@ -9,16 +9,15 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int health = 100;
-    private const int HEALTH_MAX = 100;
+    public float health = 100f;
+    private const float HEALTH_MAX = 100f;
     public Image healthBar;
     public void TakeDamage(int damge)
     {   
        if(health > 0) {
             health -= damge;
             StartCoroutine(DamageAnimation());
-            // healthAmount -= damge ;
-            // healthBar.fillAmount = healthAmount / 100f;
+            healthBar.fillAmount = (health / HEALTH_MAX) ;
         }
         else
         {
@@ -27,10 +26,12 @@ public class PlayerHealth : MonoBehaviour
     }
      public void Heal(int healthAmount)
     {   
-       if(health + healthAmount>=  HEALTH_MAX)
+       if(health + healthAmount>=  HEALTH_MAX) 
             health = HEALTH_MAX;
         else 
             health += healthAmount;
+        healthBar.fillAmount = health / HEALTH_MAX;
+
     }
     void Die()
     {
