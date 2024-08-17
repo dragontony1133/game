@@ -40,7 +40,6 @@ public class MiniEnemy1 : MonoBehaviour
         }
         if (isFlip)
         {
-            Debug.Log("left");
             Vector2 target = new Vector2(rightTarget.position.x, transform.position.y);
             newPos = Vector2.MoveTowards(rb.position, target, moveSpeed * Time.deltaTime);
 

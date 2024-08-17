@@ -9,18 +9,23 @@ public class Boss : MonoBehaviour
 
     
     public Transform player;
-    public bool isFlipped = false;
+    public bool isFlipped = true;
+    private Vector3 initLocalScale;
     public void LookAtPlayer()
     {
         if (transform.position.x > player.position.x && isFlipped ) 
         {
-            transform.Rotate(0f, 180f, 0f);
-            isFlipped = false ;
+            Vector3 newLocalScale = initLocalScale;
+            transform.localScale = newLocalScale;
+
         }
        else  if (transform.position.x < player.position.x && !isFlipped)
         {
-            transform.Rotate(0f, 180f, 0f);
-            isFlipped = true;
+            Vector3 newLocalScale = initLocalScale;
+            newLocalScale.x *=-1;
+            transform.localScale = newLocalScale;
+            // transform.Rotate(0f, 180f, 0f);
+            // isFlipped = true;
         }
 
 
@@ -28,6 +33,10 @@ public class Boss : MonoBehaviour
 
 
 
+    }
+    void Start() {
+
+        initLocalScale =  transform.localScale;
     }
 
     // Update is called once per frame

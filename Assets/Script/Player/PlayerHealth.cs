@@ -41,7 +41,7 @@ public class PlayerHealth : MonoBehaviour
     {
       Animator playerAnimator = GameObject.Find("Player").GetComponent<Animator>();
       Animator bossAnimator = GameObject.Find("Boss").GetComponent<Animator>();
-        NewBehaviourScript script = GameObject.Find("Player").GetComponent<NewBehaviourScript>();
+        PlayerScript script = GameObject.Find("Player").GetComponent<PlayerScript>();
         playerAnimator.SetBool("isHurting", false);
         playerAnimator.SetBool("isDead", true);
         yield return new WaitForSeconds(0.5f);

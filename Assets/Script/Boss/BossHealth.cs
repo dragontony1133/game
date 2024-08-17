@@ -26,7 +26,7 @@ public class BossHealth : MonoBehaviour
         Animator playerAnimator = GameObject.Find("Player").GetComponent<Animator>();
         Animator bossAnimator = GameObject.Find("Boss").GetComponent<Animator>();
         BossAttack bossScript = GameObject.Find("Boss").GetComponent<BossAttack>();
-        NewBehaviourScript playerScript = GameObject.Find("Player").GetComponent<NewBehaviourScript>();
+        PlayerScript playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
         bossAnimator.SetBool("isDead", true);
         yield return new WaitForSeconds(0.5f);
         playerAnimator.enabled = false;

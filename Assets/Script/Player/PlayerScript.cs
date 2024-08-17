@@ -6,7 +6,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class NewBehaviourScript : MonoBehaviour
+public class PlayerScript : MonoBehaviour
 {
     Rigidbody2D rb;
     Animator anim;
@@ -112,7 +112,6 @@ public class NewBehaviourScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log(col);
         if (col.gameObject.tag == "Heal") // Kiểm tra tag của GameObject va chạm
         {
           playerHealth.Heal(5);
